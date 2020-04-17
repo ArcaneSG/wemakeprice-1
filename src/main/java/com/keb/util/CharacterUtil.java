@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CalculateUtil {
+public class CharacterUtil {
 	private static CharacterManager englishManager = new CharacterManager("AaBbCcDdFfGgHhIiJjKkJjLlMmNnOoPpQqRrSsPpUuVvWwXxYyZz");
 	private static CharacterManager numberManager = new CharacterManager("0123456789");
 	
-	public static String calculate(String input) {        
+	public static String sort(String input) {        
         input.chars().forEach(c -> {
         	englishManager.setCountFromChar(c);
         	numberManager.setCountFromChar(c);
