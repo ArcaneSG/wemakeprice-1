@@ -34,10 +34,6 @@ public class CharacterManager {
 		return characterList;
 	}
 	
-	public int getCharacterListSize() {
-		return characterListSize;
-	}
-	
 	public void setCountFromChar(int c) {
 		int index = chars.indexOf((char) c);
 		
