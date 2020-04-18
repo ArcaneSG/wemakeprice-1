@@ -13,7 +13,7 @@
 	
 	
 	<style>
-		.conatainer {min-width: 300px; max-width: 500px; margin: 0 auto;}
+		.container {min-width: 300px; max-width: 500px; margin: 0 auto;}
 		.title {margin-bottom: 30px;}
 		.sub-title {text-align: left;}
 		
@@ -32,8 +32,8 @@
 					return;
 				}
 			
-				if(nullCheck(bundle)) {
-					alert("출력묶음을 확인해주세요");
+				if(nullCheck(bundle) || checkBundle(bundle) == false) {
+					alert("출력묶음을 확인해주세요. 1이상만 가능합니다");
 					return;
 				}
 			
@@ -60,6 +60,10 @@
 		function checkUrl(strUrl) {
 			var regex = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
 			return regex.test(strUrl);
+		}
+
+		function checkBundle(bundle) {
+			return bundle > 0;
 		}
 
 	</script>
@@ -90,7 +94,7 @@
 		<div class="form-group">
 			<label for="inputBundle" class="col-sm-2 control-label">출력묶음</label>
 			<div class="col-sm-3">
-				<input type="number" class="form-control" id="inputBundle" min="1" value="30">
+				<input type="number" class="form-control" id="inputBundle" min="1" value="30" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 			</div>
 		</div>
 		<div class="form-group">
