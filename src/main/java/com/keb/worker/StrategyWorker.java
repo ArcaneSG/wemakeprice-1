@@ -3,11 +3,16 @@ package com.keb.worker;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.keb.converter.StringConverter;
 import com.keb.util.CharacterUtil;
 import com.keb.util.HttpConnectionUtil;
 
 public class StrategyWorker {
+	private Logger logger = LoggerFactory.getLogger(StrategyWorker.class);
+	
 	private StringConverter converter;
 	
 	private String url;
@@ -34,6 +39,9 @@ public class StrategyWorker {
     	model.put("quotient", sortedStr.substring(0, cutIndex));
     	model.put("rest", sortedStr.substring(cutIndex));
     	model.put("url", url);
+    	
+    	logger.info("working done : url=" + url + " htmlStrLength=" + htmlStr.length() + " convertStrLength=" + convertStr.length() 
+    					+ " sortedStrLength=" + sortedStr.length() + " bundle=" + bundle);
     	
     	return model;
 	}
