@@ -18,6 +18,7 @@ public class HttpConnectionUtil {
             url = new URL(targetUrl);
      
             conn = (HttpURLConnection) url.openConnection();
+            conn.addRequestProperty("User-Agent", "Mozilla"); //403 에러 대응
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestMethod("GET");
             conn.connect();
@@ -37,7 +38,7 @@ public class HttpConnectionUtil {
                 e.printStackTrace();
             }
         }
-     
+        
         return sb.toString();
     }
 }
