@@ -1,7 +1,6 @@
 package com.keb.controller;
 
 import java.net.URLDecoder;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.keb.converter.ConverterType;
 import com.keb.converter.OnlyTextConverter;
 import com.keb.converter.TagRemoveConverter;
-import com.keb.util.CharacterUtil;
-import com.keb.util.HttpConnectionUtil;
+import com.keb.worker.StrategyWorker;
  
 @Controller
 public class MainController {
@@ -29,24 +27,12 @@ public class MainController {
     	bundle = (bundle == null) ? "1" : bundle;
     	//enum에 없을 경우 에러처리해야함
     	
-//    	System.out.println(url); //로그에 남길 것 url, 결과 길이
-    	String str = "";
     	if(ConverterType.TAG_REMOVE.equals(ConverterType.valueOf(type))) {
-    		str = new TagRemoveConverter().convert(HttpConnectionUtil.httpConnection(url));
+    		return new StrategyWorker(new TagRemoveConverter(), url, bundle).getResult();
     	}
     	
-    	str = new OnlyTextConverter().convert(HttpConnectionUtil.httpConnection(url));
-    	
-    	str = CharacterUtil.sort(str);
-    	
-    	//0으로 나눌 경우 에러처리
-    	Map<String, Object> model = new HashMap<>();
-    	int cutIndex = str.length() - str.length()%Integer.valueOf(bundle);
-    	model.put("quotient", str.substring(0, cutIndex));
-    	model.put("rest", str.substring(cutIndex));
-    	model.put("url", url);
-    	
-    	return model;
+    	return new StrategyWorker(new OnlyTextConverter(), url, bundle).getResult();
+//    	System.out.println(url); //로그에 남길 것 url, 결과 길이
     	
     }
     
