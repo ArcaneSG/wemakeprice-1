@@ -22,18 +22,17 @@ public class MainController {
     
     @RequestMapping("/url")
     public @ResponseBody Map<String, Object> url(String url, String type, String bundle) throws Exception {
-    	url = (url == null) ? "https://www.naver.com" : URLDecoder.decode(url, "UTF-8");
-    	type = (type == null) ? "ONLY_TEXT" : type;
-    	bundle = (bundle == null) ? "1" : bundle;
-    	//enum에 없을 경우 에러처리해야함
+    	if(url == null || type == null || bundle == null) {
+    		throw new Exception();
+    	}
+    	
+    	url = URLDecoder.decode(url, "UTF-8");
     	
     	if(ConverterType.TAG_REMOVE.equals(ConverterType.valueOf(type))) {
     		return new StrategyWorker(new TagRemoveConverter(), url, bundle).getResult();
     	}
     	
     	return new StrategyWorker(new OnlyTextConverter(), url, bundle).getResult();
-//    	System.out.println(url); //로그에 남길 것 url, 결과 길이
-    	
     }
     
 }
