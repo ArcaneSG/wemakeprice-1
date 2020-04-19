@@ -1,4 +1,4 @@
-package com.keb.util;
+package com.keb.sorter;
 
 import java.util.ArrayList;
 import java.util.List;

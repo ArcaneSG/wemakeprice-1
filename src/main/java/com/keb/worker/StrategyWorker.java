@@ -7,13 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.keb.converter.StringConverter;
-import com.keb.util.CharacterUtil;
+import com.keb.sorter.AbstractSorter;
+import com.keb.sorter.DefaultSorter;
 import com.keb.util.HttpConnectionUtil;
 
 public class StrategyWorker {
 	private Logger logger = LoggerFactory.getLogger(StrategyWorker.class);
 	
 	private StringConverter converter;
+	
+	private AbstractSorter sorter;
 	
 	private String url;
 	
@@ -23,6 +26,8 @@ public class StrategyWorker {
 		this.converter = converter;
 		this.url = url;
 		this.bundle = bundle;
+		
+		this.sorter = new DefaultSorter();
 	} 
 	
 	public StrategyWorker(StringConverter converter, String url, String bundle) {
@@ -32,7 +37,7 @@ public class StrategyWorker {
 	public Map<String, Object> getResult() {
 		String htmlStr = HttpConnectionUtil.httpConnection(url);
     	String convertStr = converter.convert(htmlStr);
-    	String sortedStr = CharacterUtil.sort(convertStr);
+    	String sortedStr = sorter.getResult(convertStr);
     	
     	Map<String, Object> model = new HashMap<>();
     	int cutIndex = sortedStr.length() - ((bundle == 0) ? 0 : sortedStr.length()%bundle);
