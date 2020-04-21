@@ -78,7 +78,6 @@
 
 * 구조
 	* Converter 인터페이스를 없애고 Enum에 정규식 String변수를 추가하는 게 나을듯
-	* 템플릿 메서드 패턴으로 고쳐보기
   * restful api로? (TYPE만 이용해서)
 
 * 프론트
