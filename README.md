@@ -33,7 +33,9 @@
     * pom.xml 에러로 Spring Boot 2.1.4로 다운그레이드
     
 2. HttpConnectionUtil 구현
-
+    * 구글 403 에러 대응 (user-agent : Mozila)
+    * 위메프 글자 깨짐 대응 (content-encoding : gzip)
+    
 3. Converter 구현
     * TYPE에 맞는 Converter
     * 추후 확장성을 고려해 인터페이스로 만듦
@@ -64,6 +66,7 @@
 
 8. 테스트 코드 
     * HttpConnectionUtil, Converter, Sorter에 적용
+    * thread safe 확인
     
     
 # 추후 개선
