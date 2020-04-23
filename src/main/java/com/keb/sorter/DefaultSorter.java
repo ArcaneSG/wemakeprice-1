@@ -11,6 +11,10 @@ public class DefaultSorter extends AbstractSorter {
 	
 	private List<Character> characters;
 	
+	public List<CharacterManager> getManagers() {
+		return managers;
+	}
+
 	@Override
 	void init(String input) {
 		super.init(input);
@@ -36,10 +40,8 @@ public class DefaultSorter extends AbstractSorter {
 		characters = new ArrayList<>();
 		
 		int maxSize = managers.stream().mapToInt(m -> m.getCharacterList().size()).max().getAsInt();
-		for(int i = 0; i < maxSize; i++) {
-			for(int j = 0; j < managers.size(); j++) {
-				Optional.ofNullable(managers.get(j).getNextCharacter()).ifPresent(c -> characters.add(c));
-			}
+		for(int i = 0; i < maxSize; i++) {			
+			managers.stream().forEach(m -> Optional.ofNullable(m.getNextCharacter()).ifPresent(c -> characters.add(c)));
 		}
 	}
 
