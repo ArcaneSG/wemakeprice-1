@@ -35,6 +35,7 @@
 2. HttpConnectionUtil 구현
     * 구글 403 에러 대응 (user-agent : Mozila)
     * 위메프 글자 깨짐 대응 (content-encoding : gzip)
+    	* [content-encoding](https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
     
 3. Converter 구현
     * TYPE에 맞는 Converter
