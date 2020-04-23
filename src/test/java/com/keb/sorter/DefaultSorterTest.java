@@ -46,8 +46,8 @@ public class DefaultSorterTest {
  			}
  		});
  	 	
- 	 	thread1.run();
- 	 	thread2.run();
+ 	 	thread1.start();
+ 	 	thread2.start();
  	 	//input과 output은 안전하지 않음
     } 
 	 
@@ -75,8 +75,8 @@ public class DefaultSorterTest {
  			}
  		});
  	 	
- 	 	thread1.run();
- 	 	thread2.run();
+ 	 	thread1.start();
+ 	 	thread2.start();
     }	
 }
 
