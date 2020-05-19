@@ -3,7 +3,8 @@ package com.keb.worker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.keb.converter.StringConverter;
+import com.keb.converter.ConverterType;
+import com.keb.dto.InputVO;
 import com.keb.dto.OutputVO;
 import com.keb.sorter.AbstractSorter;
 import com.keb.sorter.DefaultSorter;
@@ -12,29 +13,23 @@ import com.keb.util.HttpConnectionUtil;
 public class StrategyWorker {
 	private Logger logger = LoggerFactory.getLogger(StrategyWorker.class);
 	
-	private StringConverter converter;
-	
 	private AbstractSorter sorter;
 	
-	private String url;
+	private InputVO inputVO;
 	
-	private int bundle;
-	
-	public StrategyWorker(StringConverter converter, String url, int bundle) {
-		this.converter = converter;
-		this.url = url;
-		this.bundle = bundle;
+	public StrategyWorker(InputVO inputVO) {
+		this.inputVO = inputVO;
 		
 		this.sorter = new DefaultSorter();
-	} 
-	
-	public StrategyWorker(StringConverter converter, String url, String bundle) {
-		this(converter, url, Integer.parseInt(bundle));
-	} 
+	}  
 	
 	public OutputVO getResult() {
+		String url = inputVO.getUrl();
+		ConverterType converterType = inputVO.getType();
+		int bundle = inputVO.getBundle();
+		 
 		String htmlStr = HttpConnectionUtil.httpConnection(url);
-    	String convertStr = converter.convert(htmlStr);
+    	String convertStr = htmlStr.replaceAll(converterType.getRegex(), "");
     	String sortedStr = sorter.getResult(convertStr);
     	
     	logger.info("working done : url=" + url + " htmlStrLength=" + htmlStr.length() + " convertStrLength=" + convertStr.length() 

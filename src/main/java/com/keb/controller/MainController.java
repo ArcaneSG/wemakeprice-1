@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keb.converter.ConverterType;
-import com.keb.converter.OnlyTextConverter;
-import com.keb.converter.TagRemoveConverter;
 import com.keb.dto.InputVO;
 import com.keb.dto.OutputVO;
 import com.keb.worker.StrategyWorker;
@@ -27,10 +25,6 @@ public class MainController {
     
     @RequestMapping(value="/url", method = RequestMethod.POST)
     public @ResponseBody OutputVO url(@RequestBody InputVO params) throws Exception {
-    	if(ConverterType.TAG_REMOVE.equals(params.getType())) {
-    		return new StrategyWorker(new TagRemoveConverter(), params.getUrl(), params.getBundle()).getResult();
-    	}
-    	
-    	return new StrategyWorker(new OnlyTextConverter(), params.getUrl(), params.getBundle()).getResult();
+    	return new StrategyWorker(params).getResult();
     }    
 }
