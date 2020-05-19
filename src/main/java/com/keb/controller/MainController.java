@@ -1,7 +1,5 @@
 package com.keb.controller;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +11,7 @@ import com.keb.converter.ConverterType;
 import com.keb.converter.OnlyTextConverter;
 import com.keb.converter.TagRemoveConverter;
 import com.keb.dto.InputVO;
+import com.keb.dto.OutputVO;
 import com.keb.worker.StrategyWorker;
  
 @Controller
@@ -27,7 +26,7 @@ public class MainController {
     }
     
     @RequestMapping(value="/url", method = RequestMethod.POST)
-    public @ResponseBody Map<String, Object> url(@RequestBody InputVO params) throws Exception {
+    public @ResponseBody OutputVO url(@RequestBody InputVO params) throws Exception {
     	if(ConverterType.TAG_REMOVE.equals(params.getType())) {
     		return new StrategyWorker(new TagRemoveConverter(), params.getUrl(), params.getBundle()).getResult();
     	}

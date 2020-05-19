@@ -1,12 +1,10 @@
 package com.keb.worker;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.keb.converter.StringConverter;
+import com.keb.dto.OutputVO;
 import com.keb.sorter.AbstractSorter;
 import com.keb.sorter.DefaultSorter;
 import com.keb.util.HttpConnectionUtil;
@@ -34,21 +32,20 @@ public class StrategyWorker {
 		this(converter, url, Integer.parseInt(bundle));
 	} 
 	
-	public Map<String, Object> getResult() {
+	public OutputVO getResult() {
 		String htmlStr = HttpConnectionUtil.httpConnection(url);
     	String convertStr = converter.convert(htmlStr);
     	String sortedStr = sorter.getResult(convertStr);
     	
-    	Map<String, Object> model = new HashMap<>();
-    	int cutIndex = sortedStr.length() - ((bundle == 0) ? 0 : sortedStr.length()%bundle);
-    	model.put("quotient", sortedStr.substring(0, cutIndex));
-    	model.put("rest", sortedStr.substring(cutIndex));
-    	model.put("url", url);
-    	
     	logger.info("working done : url=" + url + " htmlStrLength=" + htmlStr.length() + " convertStrLength=" + convertStr.length() 
-    					+ " sortedStrLength=" + sortedStr.length() + " bundle=" + bundle);
+		+ " sortedStrLength=" + sortedStr.length() + " bundle=" + bundle);
     	
-    	return model;
+    	int cutIndex = sortedStr.length() - ((bundle == 0) ? 0 : sortedStr.length()%bundle);
+    	OutputVO outputVO = new OutputVO(sortedStr, cutIndex, url);
+    	
+    	logger.info("result : " + outputVO.getLogging());
+    	
+    	return outputVO;
 	}
 	
 }
