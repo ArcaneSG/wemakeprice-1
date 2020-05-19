@@ -36,11 +36,12 @@
 					alert("출력묶음을 확인해주세요. 1이상만 가능합니다");
 					return;
 				}
-			
+				
 				$.ajax({
 					url : "/url",
-					type : "get",
-					data : {'url': encodeURIComponent(url), 'type': type, 'bundle': bundle},
+					type : "post", 
+					contentType: "application/json", 
+					data : JSON.stringify({'url': encodeURIComponent(url), 'type': type, 'bundle': bundle}),
 					success : function(data) {
 						$('#outputQuotient').val(data.quotient);
 						$('#outputRest').val(data.rest);

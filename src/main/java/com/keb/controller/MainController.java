@@ -4,7 +4,9 @@ import java.net.URLDecoder;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keb.converter.ConverterType;
@@ -15,13 +17,16 @@ import com.keb.worker.StrategyWorker;
 @Controller
 public class MainController {
  
-    @RequestMapping("/")
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String index() throws Exception {
         return "index";
     }
     
-    @RequestMapping("/url")
-    public @ResponseBody Map<String, Object> url(String url, String type, String bundle) throws Exception {
+    @RequestMapping(value="/url", method = RequestMethod.POST)
+    public @ResponseBody Map<String, Object> url(@RequestBody Map<String, Object> params) throws Exception {
+    	String url = (String) params.get("url");
+    	String type = (String) params.get("type");
+    	String bundle = (String) params.get("bundle");
     	if(url == null || type == null || bundle == null) {
     		throw new Exception();
     	}
@@ -33,6 +38,5 @@ public class MainController {
     	}
     	
     	return new StrategyWorker(new OnlyTextConverter(), url, bundle).getResult();
-    }
-    
+    }    
 }
