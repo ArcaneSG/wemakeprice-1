@@ -1,7 +1,12 @@
 # 위메프 과제
 
+### 기술스택
 * Spring-boot 2.1.4
 * Java 1.8
+* Maven
+* Thymeleaf
+* jQuery, Bootstrap
+
 
 
 # 과제 설명
