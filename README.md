@@ -35,11 +35,11 @@
 2. HttpConnectionUtil 구현
     * 구글 403 에러 대응 (user-agent : Mozila)
     * 위메프 글자 깨짐 대응 (content-encoding : gzip)
-    	* [content-encoding](https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Transfer-Encoding)
+    	* [content-encoding](https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Content-Encoding)
     
 3. Converter 구현
     * TYPE에 맞는 Converter
-    * 추후 확장성을 고려해 인터페이스로 만듦
+    * 추후 확장성을 고려해 인터페이스로 만들었다가 제거
     * Enum
     * 정규식
     
@@ -69,26 +69,46 @@
     * HttpConnectionUtil, Converter, Sorter에 적용
     * thread safe 확인
     
+9. DTO 추가
+    * InputVO, OutputVO 추가
+	
+
+	
+    
     
 # 추후 개선
 * 스프링 프레임워크 활용
-	* (스프링에 대한 추가 공부 이후)
-  * @Service와 @Autowired로 고치기
-  * Validate, MVC (@NotNull, initBind 등..)
+    * (스프링에 대한 추가 공부 이후)
+    * @Service와 @Autowired로 고치기
+    * Validate, MVC (@NotNull, initBind 등..)
+  
+* DTO
+    * defaultInputVO를 final static으로 변경
+    * initBind
+    * inputVO 유효성 체크
+    * 잘못된 값 입력되었을 경우 테스트 코드
 
 * 예외처리
-	* CustomException 만들까
-	* 예외 처리 관리 방법 알아보기
+    * CustomException 만들까
+    * 예외 처리 관리 방법 알아보기
+    * 위치
+    	* e.printStackTrace(), new Exception
+
+* 보안
+    * XSS, CSRF 방어
 
 * 구조
-	* Converter 인터페이스를 없애고 Enum에 정규식 String변수를 추가하는 게 나을듯
   * restful api로? (TYPE만 이용해서)
 
 * 프론트
-	* thymeleaf 써보기 (Enum 타입 내려주기)
-	* Https:// 없이 URL 입력 가능하도록 입력폼 개선
-  * jQuery, BootStrap 라이브러리 다운로드받아 프로젝트에 추가하기
-      * 개발 편의로 CDN을 썼지만 환경에 따라 외부 접속이 안되는 곳도 있음
+    * [thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+    * Https:// 없이 URL 입력 가능하도록 입력폼 개선
+    * jQuery, BootStrap 라이브러리 다운로드받아 프로젝트에 추가하기
+    	* 개발 편의로 CDN을 썼지만 환경에 따라 외부 접속이 안되는 곳도 있음
+      
+* 기타 
+    * try catch finally를 try with resource로 변경
+    * getResult에 final로
   
     
 
